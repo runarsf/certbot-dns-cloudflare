@@ -3,8 +3,8 @@ A Docker image to automatically retrieve wildcard certificates from Let's Encryp
 
 ## Getting started
 Copy the contents of [docker-compose.yml](./docker-compose.yml), replace `image` with the newest version from [runarsf/certbot-dns-cloudflare/packages](https://github.com/runarsf/certbot-dns-cloudflare/packages) (`docker.pkg.github.com/runarsf/certbot-dns-cloudflare/certbot-dns-cloudflare:1.0.0`), and remove `build`.\
-Required environment variables:\ 
-Either set these in the `.env`-file or directory in `docker-compose.yml`.\ 
+Required environment variables:<br />
+Either set these in the `.env`-file or directory in `docker-compose.yml`.<br />
 See [docker-compose.yml](./docker-compose.yml) for more variables.
   - `DOMAIN`: A comma-separated list of domains, excluding protocol and wildcard.
   - `EMAIL`: The email provided to certbot.
