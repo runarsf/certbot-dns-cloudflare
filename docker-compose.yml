@@ -10,9 +10,9 @@ services:
       DOMAIN: "${DOMAIN:?}" # Comma-separated list of domains (excluding wildcards, they're added automatically)
       EMAIL: "${EMAIL:?}"
       CLOUDFLARE_TOKEN: "${CLOUDFLARE_TOKEN:?}"
-      MODE: "${MODE:-}" # staging for --dry-run
       NGINX_CONTAINER_NAME: "${NGINX_CONTAINER_NAME:-}"
       CRON: "${CRON:-0 8 * * *}"
+      MODE: "${MODE:-}" # staging for --dry-run
       DISCORD_WEBHOOK: "${DISCORD_WEBHOOK:-}"
       PROPAGATION: "${PROPAGATION:-60}"
       ACME_SERVER: "${ACME_SERVER:-https://acme-v02.api.letsencrypt.org/directory}"
