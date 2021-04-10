@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  certbot-dns-cloudflare:
+    image: "certbot-dns-cloudflare"
+    build: "."
+    hostname: "certbot-dns-cloudflare"
+    container_name: "certbot-dns-cloudflare"
+    environment:
+      DOMAIN: "${DOMAIN:?}" # Comma-separated list of domains (excluding wildcards, they're added automatically)
+      EMAIL: "${EMAIL:?}"
+      CLOUDFLARE_TOKEN: "${CLOUDFLARE_TOKEN:?}"
+      MODE: "${MODE:-}" # staging for --dry-run
+      NGINX_CONTAINER_NAME: "${NGINX_CONTAINER_NAME:-}"
+      CRON: "${CRON:-0 8 * * *}"
+      DISCORD_WEBHOOK: "${DISCORD_WEBHOOK:-}"
+      PROPAGATION: "${PROPAGATION:-60}"
+      ACME_SERVER: "${ACME_SERVER:-https://acme-v02.api.letsencrypt.org/directory}"
+      # Consider supporting email/api key, or not, idk, idc
+      #CERTBOT_EMAIL: "${LETSENCRYPT_EMAIL:-${EMAIL}}"
+      #LETSENCRYPT_EMAIL: "${LETSENCRYPT_EMAIL:-${EMAIL}}"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock" # To allow restarting nginx inside container
+      - "./letsencrypt/live:/etc/letsencrypt/live:rw"
+      - "./letsencrypt/archive:/etc/letsencrypt/archive:rw"
+    restart: "no"
+    #command: [ "tail", "-f", "/dev/null" ]
+    #command: [ "certonly", "--manual-public-ip-logging-ok", "--server", "${ACME_SERVER}", "--expand", "--agree-tos", "--non-interactive", "--email", "${EMAIL}", "--dns-cloudflare", "--dns-cloudflare-credentials", "/credentials", "-d", "${DOMAIN},*.${DOMAIN}", "--dns-cloudflare-propagation-seconds", "${PROPAGATION}" ]
